@@ -4,16 +4,87 @@
 
 {% block content %}
 
-  <div class="ml-10 mt-4 relative h-full w-full p-5">
-    <h6 class="text-blue-500 text-3xl">Usuarios</h6>
+    <h6 class="relative ml-10 mt-4 pl-2 border-2 border-black w-4/5 text-blue-500 text-xl">Gestionar usuario</h6>
+    <div class="border-2 border-black ml-10 relative h-full p-3 w-4/5">
+
+        <form action="{% url 'insertar_usuario' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="grid grid-cols-4 flex flex-col">
+            {{ usuario_form.non_field_errors }}
+            <div class="flex flex-col m-2 w-52">
+                {{ usuario_form.username.errors }}
+                <label for="{{ usuario_form.username.id_for_label }}">Nombre de usuario:</label>
+                {{ usuario_form.username }}
+            </div>
+
+            <div class="flex flex-col m-2 w-52">
+                {{ usuario_form.password1.errors }}
+                <label for="{{ usuario_form.password1.id_for_label }}" name="password1">Contraseña:</label>
+                {{ usuario_form.password1 }}
+            </div>
+
+            <div class="flex flex-col m-2 w-52">
+                {{ usuario_form.password2.errors }}
+                <label for="{{ usuario_form.password2.id_for_label }}" name="password2">Confirmar contraseña:</label>
+                {{ usuario_form.password2 }}
+            </div>
+
+
+            <div class="flex flex-col m-2 w-52">
+                {{ usuario_form.email.errors }}
+                <label for="{{ usuario_form.email.id_for_label }}">Correo:</label>
+                {{ usuario_form.email }}
+            </div>
+
+            <div class="flex flex-col m-2 w-52">
+                {{ usuario_form.rol.errors }}
+                <label for="{{ usuario_form.rol.id_for_label }}">Rol:</label>
+                    {{ usuario_form.rol }}
+            </div>
+
+<!--            <div class="flex justify-start items-center m-2 w-52">-->
+<!--                {{ usuario_form.estado.errors }}-->
+<!--                <label for="{{ usuario_form.estado.id_for_label }}">Estado:</label>-->
+<!--                {{ usuario_form.estado }}-->
+<!--            </div>-->
+
+
+            </div>
+
+            <div class="flex flex-wrap space-x-12 block mt-6">
+                <div class="flex w-full justify-end">
+                    <input type="submit" value="Insertar" class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]" >
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+  <div class="ml-10 mt-4 relative h-full w-full">
+    <h6 class="text-blue-500 text-xl">Listado de usuarios</h6>
   </div>
-
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
-
 
 <div class="ml-10 mt-4 relative">
         {% render_table table %}
 </div>
+
+{% if errors %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+        title: 'Error al registrar',
+        html: '<ul>' +
+            {% for field, error in errors.items %}
+                '<li> {{ error|join:", " }}</li>' +
+            {% endfor %}
+            '</ul>',
+        icon: 'error'
+    });
+</script>
+{% endif %}
+
 
 
 {% block extrastyle %}

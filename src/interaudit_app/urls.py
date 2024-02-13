@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 import disposicion
 import usuario
+from categoria.views import insertar_categoria, delete_categoria, delete_subcategoria, insertar_subcategoria
 from usuario import urls
 from home.views import CustomSignupView
 from django.contrib import admin
@@ -26,8 +27,13 @@ urlpatterns = [
     path('delete_user/<int:id>', delete_user, name="delete_user"),
     path('delete_permiso/<int:id>', delete_permiso, name="delete_permiso"),
     path('delete_rol/<int:id>', delete_rol, name="delete_rol"),
+    path('delete_categoria/<int:id>', delete_categoria, name="delete_categoria"),
+    path('delete_subcategoria/<int:id>', delete_subcategoria, name="delete_subcategoria"),
     path('insertar_permiso/', insertar_permiso, name='insertar_permiso'),
-
+    path('insertar_rol/', insertar_rol, name='insertar_rol'),
+    path('insertar_usuario/', insertar_usuario, name='insertar_usuario'),
+    path('insertar_categoria/', insertar_categoria, name='insertar_categoria'),
+    path('insertar_subcategoria/', insertar_subcategoria, name='insertar_subcategoria'),
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')),
     path('accounts/', include('allauth.urls')),

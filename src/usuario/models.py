@@ -6,18 +6,18 @@ import django_tables2 as tables
 # Create your models here.
 
 class Permiso(models.Model):
-    descripcion = models.CharField(max_length=500)
+    nombre = models.CharField(max_length=500)
     estado = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'permiso'
 
     def __str__(self):
-        return self.descripcion
+        return self.nombre
 
 
 class Rol(models.Model):
-    descripcion = models.CharField(max_length=500)
+    nombre = models.CharField(max_length=500)
     estado = models.BooleanField(default=True)
     id_permiso = models.ManyToManyField(Permiso, verbose_name='Permiso')
 
@@ -25,14 +25,14 @@ class Rol(models.Model):
         db_table = 'rol'
 
     def __str__(self):
-        return self.descripcion
+        return self.nombre
 
 
 
 class Usuario(AbstractUser):
     username = models.CharField(max_length=100, unique=True, verbose_name='Usuario')
     password = models.CharField(max_length=100)
-    rol = models.ForeignKey(Rol, on_delete=models.CASCADE, db_column='id_rol',
+    rol = models.ForeignKey(Rol, on_delete=models.SET_NULL, db_column='id_rol',
                             blank=True, null=True)
     estado = models.BooleanField(default=True)
 

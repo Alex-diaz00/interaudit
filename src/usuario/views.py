@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from .forms import PermisoForm
+from .forms import PermisoForm, RegistrationForm, RolForm
 from .serializers import UsuarioAllFieldsSerializer, RolSerializer, PermisoSerializer
 from usuario.models import Usuario, Permiso, Rol
 import django_tables2 as tables
@@ -68,7 +68,6 @@ def insertar_permiso(request):
     if request.method != "POST":
         return Response({'message': "Tipo de petición no valida"}, status=400)
     form = PermisoForm(request.POST)
-    print(form)
     if form.is_valid():
         form.save()
     return redirect("/home/permisos")
@@ -79,9 +78,32 @@ class UsuarioTView(SingleTableView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        usuario_form = RegistrationForm()
         context['parent'] = 'pages'
         context['segment'] = 'tables'
+        context['usuario_form'] = usuario_form
         return context
+
+@api_view(['POST'])
+def insertar_usuario(request):
+    if request.method != "POST":
+        return Response({'message': "Tipo de petición no valida"}, status=400)
+
+    form = RegistrationForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect("/home/usuarios")
+    else:
+        errors = form.errors
+        usuarios = Usuario.objects.all()
+        usuario_form = RegistrationForm()
+        table_usuarios = UsuarioTable(usuarios)
+        extra_context = {'parent': 'pages', 'segment': 'tables',  'object_list': usuarios,
+                         'form': form, 'errors': errors, 'table': table_usuarios,
+                         'usuario_form': usuario_form}
+
+        return render(request, 'pages/usuario.html', extra_context)
+
 
 class PermisoTView(SingleTableView):
     model = Permiso
@@ -103,6 +125,19 @@ class RolTView(SingleTableView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        rol_form = RolForm()
         context['parent'] = 'pages'
         context['segment'] = 'roles'
+        context['rol_form'] = rol_form
         return context
+
+@api_view(['POST'])
+def insertar_rol(request):
+    if request.method != "POST":
+        return Response({'message': "Tipo de petición no valida"}, status=400)
+    form = RolForm(request.POST)
+    if form.is_valid():
+        rol = form.save(commit=False)
+        rol.save()
+        form.save_m2m()
+    return redirect("/home/roles")

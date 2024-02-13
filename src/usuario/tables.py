@@ -1,9 +1,7 @@
-from django.utils.html import format_html
-from django_tables2 import tables
-from rest_framework.reverse import reverse
 
+from django_tables2 import tables
 from usuario.models import Usuario, Permiso, Rol
-from django_tables2.utils import A
+
 
 
 class UsuarioTable(tables.Table):
@@ -12,6 +10,7 @@ class UsuarioTable(tables.Table):
         model = Usuario
         template_name = "django_tables2/bootstrap4.html"
         fields = ('username', 'email', 'estado', 'rol')
+        order_by = ('username', 'email','rol',)
         attrs = {"class": "table border-collapse table-auto	table-striped text-xl table-bordered", "style": "width: 90%;"}
 
 
@@ -20,7 +19,8 @@ class PermisoTable(tables.Table):
     class Meta:
         model = Permiso
         template_name = "django_tables2/bootstrap4.html"
-        fields = ('descripcion', 'estado')
+        fields = ('nombre', 'estado')
+        order_by = ('nombre',)
         attrs = {"class": "table border-collapse table-auto	table-striped text-xl table-bordered", "style": "width: 90%;"}
 
 
@@ -29,5 +29,7 @@ class RolTable(tables.Table):
     class Meta:
         model = Rol
         template_name = "django_tables2/bootstrap4.html"
-        fields = ('id_permiso', 'descripcion', 'estado')
+        fields = ( 'nombre', 'id_permiso', 'estado')
+        order_by = ('nombre',)
+
         attrs = {"class": "table border-collapse table-auto	table-striped text-xl table-bordered", "style": "width: 90%;"}

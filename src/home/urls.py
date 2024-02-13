@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
+from categoria.views import CategoriaTView, SubcategoriaTView
 from usuario.views import UsuarioTView, PermisoTView, RolTView
 from . import views
 
@@ -10,7 +11,10 @@ urlpatterns = [
     path('usuarios/', UsuarioTView.as_view(), name='tables'),
     path('permisos/', PermisoTView.as_view(), name='permisos'),
     path('roles/', RolTView.as_view(), name='roles'),
+    path('categorias/', CategoriaTView.as_view(), name='categorias'),
+    path('subcategorias/', SubcategoriaTView.as_view(), name='subcategorias'),
     path('vr/', views.vr, name='vr'),
+    path('billing/', views.billing, name='billing'),
     path('rtl/', views.rtl, name='rtl'),
     path('profile/', views.profile, name='profile'),
 
