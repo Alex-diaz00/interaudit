@@ -80,7 +80,7 @@ class UsuarioTView(SingleTableView):
         context = super().get_context_data(**kwargs)
         usuario_form = RegistrationForm()
         context['parent'] = 'pages'
-        context['segment'] = 'tables'
+        context['segment'] = 'usuarios'
         context['usuario_form'] = usuario_form
         return context
 

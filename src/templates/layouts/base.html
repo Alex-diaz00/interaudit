@@ -14,23 +14,34 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
   <head>
     {% include 'includes/head.html' %}
     {% block extrastyle %}{% endblock extrastyle %}
   </head>
   <body class="bg-white m-0 font-sans antialiased font-normal text-base leading-default bg-gray-50 text-slate-500">
+
+  <header>
     {% block sidebar %}
       {% include 'includes/sidebar.html' %}
     {% endblock sidebar %}
 
 
-    <main class="ease-soft-in-out xl:ml-60 relative h-full max-h-screen rounded-xl transition-all duration-200">
       {% block navigation %}
         {% include 'includes/navigation.html' %}
       {% endblock navigation %}
+    </header>
       {% block breadcrumbs %}{% endblock breadcrumbs %}
+    <main class="ease-soft-in-out xl:ml-60 relative h-full max-h-screen rounded-xl transition-all duration-200">
       {% block content %}{% endblock content %}
     </main>
+
+  <script
+    src="{% static 'assets/js/tw/tw-elements.umd.min.js' %}"
+    type="text/javascript">
+
+</script>
+
   </body>
 
 

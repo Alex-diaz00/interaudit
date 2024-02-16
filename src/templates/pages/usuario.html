@@ -3,7 +3,7 @@
 {% load render_table from django_tables2 %}
 
 {% block content %}
-
+<div class="relative">
     <h6 class="relative ml-10 mt-4 pl-2 border-2 border-black w-4/5 text-blue-500 text-xl">Gestionar usuario</h6>
     <div class="border-2 border-black ml-10 relative h-full p-3 w-4/5">
 
@@ -70,6 +70,7 @@
         {% render_table table %}
 </div>
 
+    </div>
 {% if errors %}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -103,7 +104,7 @@
     <script src="{% static 'assets/js/sweet_alert2.js' %}"></script>
 
     <script>
-        const btnsDelete = document.querySelectorAll(".btn-danger")
+        const btnsDelete = document.querySelectorAll("#delete")
         const ths = document.querySelectorAll("th")
         const tds = document.querySelectorAll("td")
         const trs = document.querySelectorAll("tr")
