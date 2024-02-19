@@ -7,7 +7,7 @@ import django_tables2 as tables
 
 class Permiso(models.Model):
     nombre = models.CharField(max_length=500)
-    estado = models.BooleanField(default=True)
+    estado = models.BooleanField(default=True, verbose_name="Activo")
 
     class Meta:
         db_table = 'permiso'
@@ -18,7 +18,7 @@ class Permiso(models.Model):
 
 class Rol(models.Model):
     nombre = models.CharField(max_length=500)
-    estado = models.BooleanField(default=True)
+    estado = models.BooleanField(default=True, verbose_name="Activo")
     id_permiso = models.ManyToManyField(Permiso, verbose_name='Permiso')
 
     class Meta:
@@ -34,7 +34,7 @@ class Usuario(AbstractUser):
     password = models.CharField(max_length=100)
     rol = models.ForeignKey(Rol, on_delete=models.SET_NULL, db_column='id_rol',
                             blank=True, null=True)
-    estado = models.BooleanField(default=True)
+    estado = models.BooleanField(default=True, verbose_name="Activo")
 
     USERNAME_FIELD = 'username'
 

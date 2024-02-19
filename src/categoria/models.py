@@ -3,7 +3,7 @@ from django.db import models
 
 class Subcategoria(models.Model):
     nombre = models.CharField(max_length=500)
-    estado = models.BooleanField(default=True)
+    estado = models.BooleanField(default=True, verbose_name="Activo")
 
     class Meta:
         db_table = 'subcategoria'
@@ -13,7 +13,7 @@ class Subcategoria(models.Model):
 
 class Categoria (models.Model):
     nombre = models.CharField(max_length=500)
-    estado = models.BooleanField(default=True)
+    estado = models.BooleanField(default=True, verbose_name="Activo")
     id_subcategoria = models.ManyToManyField(Subcategoria, verbose_name='Subcategorías asociadas',
                                              related_name='subcategorias')
     class Meta:
