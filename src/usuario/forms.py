@@ -1,6 +1,6 @@
 import self as self
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import gettext_lazy as _
 from usuario.models import Permiso, Usuario, Rol
 
@@ -38,16 +38,30 @@ class RegistrationForm(UserCreationForm):
     password1 = forms.CharField(
       label=_("Contraseña"),
       widget=forms.PasswordInput(),
+
   )
     password2 = forms.CharField(
       label=_("Confirmar Contraseña"),
-      widget=forms.PasswordInput(),
+      widget=forms.PasswordInput({"autocomplete": False}),
   )
     rol = forms.ModelChoiceField(queryset=Rol.objects.all())
     class Meta:
         model = Usuario
         fields = ('username', 'email', 'rol', 'estado',)
 
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({"class": "ml-2 border rounded border-black"})
+
+class UsuarioEditarForm(UserChangeForm):
+
+    rol = forms.ModelChoiceField(queryset=Rol.objects.all())
+
+    class Meta:
+        model = Usuario
+        fields = ('username', 'email', 'rol', 'estado',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

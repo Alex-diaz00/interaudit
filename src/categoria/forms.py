@@ -23,7 +23,7 @@ class SubcategoriaForm(forms.ModelForm):
 class CategoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
-        fields = ('nombre',)
+        fields = ('nombre', 'estado',)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():

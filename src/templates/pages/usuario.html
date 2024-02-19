@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% load render_table from django_tables2 %}
+{% load bootstrap4 %}
 
 {% block content %}
 <div class="relative">
@@ -62,12 +63,19 @@
 
 
 
-  <div class="ml-10 mt-4 relative h-full w-full">
+  <div class="ml-10 mt-4 relative h-full">
     <h6 class="text-blue-500 text-xl">Listado de usuarios</h6>
   </div>
 
+{% if filter %}
+    <form action="" method="get" class="ml-10 form space-x-4 form-inline">
+        {% bootstrap_form filter.form layout='inline' %}
+        {% bootstrap_button 'filter' %}
+    </form>
+{% endif %}
+
 <div class="ml-10 mt-4 relative">
-        {% render_table table %}
+        {% render_table table "includes/table.html" %}
 </div>
 
     </div>
@@ -104,7 +112,7 @@
     <script src="{% static 'assets/js/sweet_alert2.js' %}"></script>
 
     <script>
-        const btnsDelete = document.querySelectorAll("#delete")
+        const btnsDelete = document.querySelectorAll(".btn-danger")
         const ths = document.querySelectorAll("th")
         const tds = document.querySelectorAll("td")
         const trs = document.querySelectorAll("tr")
@@ -134,20 +142,7 @@
 
             btn.addEventListener("click", function(e) {
                 e.preventDefault();
-                Swal.fire({
-                    title: "¿Desea eliminar el usuario?",
-                    showCancelButton: true,
-                    icon: "warning",
-                    confirmButtonText: "Eliminar",
-                    confirmButtonColor: "#d33",
-                    backdrop: true,
-                    showLoaderOnConfirm: true,
-                    preConfirm:()=> {
-                        location.href = e.target.href;
-                    },
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                })
+                delete_alert("¿Desea eliminar a " + btn.name +"?");
             })
         })
 

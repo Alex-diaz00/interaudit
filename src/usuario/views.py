@@ -1,12 +1,13 @@
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import ListView
-from django_tables2 import SingleTableView
+from django_tables2 import SingleTableView, LazyPaginator
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from .forms import PermisoForm, RegistrationForm, RolForm
+from .filters import PermisoFilter, RolFilter, UsuarioFilter
+from .forms import PermisoForm, RegistrationForm, RolForm, UsuarioEditarForm
 from .serializers import UsuarioAllFieldsSerializer, RolSerializer, PermisoSerializer
 from usuario.models import Usuario, Permiso, Rol
 import django_tables2 as tables
@@ -75,10 +76,17 @@ class UsuarioTView(SingleTableView):
     model = Usuario
     table_class = UsuarioTable
     template_name = 'pages/usuario.html'
+    filterset_class = UsuarioFilter
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return self.filterset_class(self.request.GET, queryset=queryset).qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         usuario_form = RegistrationForm()
+        filter = UsuarioFilter()
+        context['filter'] = filter
         context['parent'] = 'pages'
         context['segment'] = 'usuarios'
         context['usuario_form'] = usuario_form
@@ -109,10 +117,17 @@ class PermisoTView(SingleTableView):
     model = Permiso
     table_class = PermisoTable
     template_name = 'pages/permiso.html'
+    filterset_class = PermisoFilter
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return self.filterset_class(self.request.GET, queryset=queryset).qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         permiso_form = PermisoForm()
+        filter = PermisoFilter()
+        context['filter'] = filter
         context['parent'] = 'pages'
         context['segment'] = 'permisos'
         context['permiso_form'] = permiso_form
@@ -122,10 +137,17 @@ class RolTView(SingleTableView):
     model = Rol
     table_class = RolTable
     template_name = 'pages/rol.html'
+    filterset_class = RolFilter
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return self.filterset_class(self.request.GET, queryset=queryset).qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         rol_form = RolForm()
+        filter = RolFilter()
+        context['filter'] = filter
         context['parent'] = 'pages'
         context['segment'] = 'roles'
         context['rol_form'] = rol_form
@@ -141,3 +163,72 @@ def insertar_rol(request):
         rol.save()
         form.save_m2m()
     return redirect("/home/roles")
+
+
+def editar_permiso(request):
+    permiso = Permiso.objects.get(id= int(request.POST['id']))
+    permiso.nombre = request.POST['nombre']
+    permiso.estado = False
+    if "estado" in request.POST:
+        permiso.estado = True
+    permiso.save()
+    return redirect("/home/permisos")
+
+def edicion_permiso(request, id):
+    permiso = Permiso.objects.get(id=id)
+    initial_data = {
+        'nombre': permiso.nombre,
+        'estado': permiso.estado,
+        }
+    permiso_form = PermisoForm(initial=initial_data)
+    data = {
+        'permiso': permiso,
+        'permiso_form': permiso_form
+    }
+    return render(request, 'pages/edicion-permiso.html', data)
+
+
+def editar_rol(request):
+    rol = Rol.objects.get(id= int(request.POST['id']))
+    if request.method == 'POST':
+        form = RolForm(request.POST, instance=rol)
+        if form.is_valid():
+            rol = form.save()
+    return redirect("/home/roles")
+
+def edicion_rol(request, id):
+    rol = Rol.objects.get(id=id)
+    rol_form = RolForm(instance=rol)
+    data = {
+        'rol': rol,
+        'rol_form': rol_form
+    }
+    return render(request, 'pages/edicion-rol.html', data)
+
+
+def editar_usuario(request):
+    usuario = Usuario.objects.get(id= int(request.POST['id']))
+    if request.method == 'POST':
+        form = UsuarioEditarForm(request.POST, instance=usuario)
+        if form.is_valid():
+            usuario = form.save()
+        else:
+            for field, errors in form.errors.items():
+                print(f"Campo: {field}")
+                for error in errors:
+                    print(f"Error: {error}")
+            data = {
+                'usuario': usuario,
+                'usuario_form': form
+            }
+            return render(request, 'pages/edicion-usuario.html', data)
+    return redirect("/home/usuarios")
+
+def edicion_usuario(request, id):
+    usuario = Usuario.objects.get(id=id)
+    usuario_form = UsuarioEditarForm(instance=usuario)
+    data = {
+        'usuario': usuario,
+        'usuario_form': usuario_form
+    }
+    return render(request, 'pages/edicion-usuario.html', data)

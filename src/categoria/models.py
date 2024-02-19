@@ -14,7 +14,7 @@ class Subcategoria(models.Model):
 class Categoria (models.Model):
     nombre = models.CharField(max_length=500)
     estado = models.BooleanField(default=True)
-    id_subcategoria = models.ManyToManyField(Subcategoria, null=True, verbose_name='Subcategorías asociadas',
+    id_subcategoria = models.ManyToManyField(Subcategoria, verbose_name='Subcategorías asociadas',
                                              related_name='subcategorias')
     class Meta:
         db_table = 'categoria'

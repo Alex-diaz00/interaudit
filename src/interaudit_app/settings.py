@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_spectacular',
     'drf_spectacular_sidecar',
+    'django_filters',
     'django_tables2',
+    'bootstrap4',
     # The following apps are required by auth:
     'allauth',
     'allauth.account',
@@ -189,6 +191,8 @@ STATICFILES_DIRS = [
   BASE_DIR.parent / "node_modules",
 ]
 STATIC_ROOT = BASE_DIR.parent / "static"
+
+# STATIC_ROOT = "/var/www/example.com/static/"
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 

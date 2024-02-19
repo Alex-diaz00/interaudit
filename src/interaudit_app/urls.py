@@ -3,7 +3,8 @@ from rest_framework.routers import DefaultRouter
 
 import disposicion
 import usuario
-from categoria.views import insertar_categoria, delete_categoria, delete_subcategoria, insertar_subcategoria
+from categoria.views import insertar_categoria, delete_categoria, delete_subcategoria, insertar_subcategoria, \
+    edicion_subcategoria, editar_subcategoria, edicion_categoria, editar_categoria
 from usuario import urls
 from home.views import CustomSignupView
 from django.contrib import admin
@@ -34,6 +35,18 @@ urlpatterns = [
     path('insertar_usuario/', insertar_usuario, name='insertar_usuario'),
     path('insertar_categoria/', insertar_categoria, name='insertar_categoria'),
     path('insertar_subcategoria/', insertar_subcategoria, name='insertar_subcategoria'),
+
+
+    path('edicion_usuario/<int:id>', edicion_usuario, name='edicion_usuario'),
+    path('editar_usuario/', editar_usuario, name='editar_usuario'),
+    path('edicion_rol/<int:id>', edicion_rol, name='edicion_rol'),
+    path('editar_rol/', editar_rol, name='editar_rol'),
+    path('edicion_permiso/<int:id>', edicion_permiso, name='edicion_permiso'),
+    path('editar_permiso/', editar_permiso, name='editar_permiso'),
+    path('edicion_subcategoria/<int:id>', edicion_subcategoria, name='edicion_subcategoria'),
+    path('editar_subcategoria/', editar_subcategoria, name='editar_subcategoria'),
+    path('edicion_categoria/<int:id>', edicion_categoria, name='edicion_categoria'),
+    path('editar_categoria/', editar_categoria, name='editar_categoria'),
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')),
     path('accounts/', include('allauth.urls')),
