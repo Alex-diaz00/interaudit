@@ -1,4 +1,4 @@
-function delete_alert(title) {
+function delete_alert(title, e) {
 
 Swal.fire({
     title: title,

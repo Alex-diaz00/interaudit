@@ -2649,6 +2649,11 @@ html.dark{
   border-bottom-right-radius: 0.25rem;
 }
 
+.rounded-r-full{
+  border-top-right-radius: 9999px;
+  border-bottom-right-radius: 9999px;
+}
+
 .rounded-t-2xl{
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
@@ -3170,6 +3175,12 @@ html.dark{
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-green-200{
+  --tw-gradient-from: #bbf7d0 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(187 247 208 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .from-green-600{
   --tw-gradient-from: #16a34a var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(22 163 74 / 0) var(--tw-gradient-to-position);
@@ -3214,6 +3225,10 @@ html.dark{
 .via-white{
   --tw-gradient-to: rgb(255 255 255 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), #fff var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
+.to-blue-300{
+  --tw-gradient-to: #93c5fd var(--tw-gradient-to-position);
 }
 
 .to-cyan-300{

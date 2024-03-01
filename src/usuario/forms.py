@@ -42,7 +42,7 @@ class RegistrationForm(UserCreationForm):
   )
     password2 = forms.CharField(
       label=_("Confirmar Contraseña"),
-      widget=forms.PasswordInput({"autocomplete": False}),
+      widget=forms.PasswordInput(),
   )
     rol = forms.ModelChoiceField(queryset=Rol.objects.all())
     class Meta:
@@ -54,6 +54,7 @@ class RegistrationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs.update({"class": "ml-2 border rounded border-black"})
+
 
 class UsuarioEditarForm(UserChangeForm):
 
