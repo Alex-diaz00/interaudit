@@ -13,17 +13,19 @@ class CategoriaTable(tables.Table):
     # subcategoria = tables.columns.Column(accessor="id_subcategoria", verbose_name="Subcategorías asociadas")
     subcategoria = tables.columns.ManyToManyColumn(
         accessor='id_subcategoria.all',
-        verbose_name='Subcategorias',
+        verbose_name='Subcategorías asociadas',
         transform=lambda id_subcategoria: id_subcategoria.nombre,
 
     )
+    estado = tables.columns.BooleanColumn(verbose_name="Activo", yesno=("Habilitado", "Deshabilitado"))
     class Meta:
         model = Categoria
+        orderable = False
         template_name = "django_tables2/bootstrap4.html"
         fields = ( 'categoria', 'subcategoria', 'estado')
         order_by = ('categoria',)
         per_page = 10
-        attrs = {"class": "my-4 border-collapse table-auto	table-striped text-xl table-bordered", "style": "width: 90%;"}
+        attrs = {"class": "text-center my-4 border-collapse table-auto	table-striped text-xl table-bordered", "style": "width: 90%;"}
 
 
 
@@ -37,16 +39,17 @@ class SubcategoriaTable(tables.Table):
     # categoria = tables.columns.Column(accessor="subcategorias.all", verbose_name="Categoría")
     categoria = tables.columns.ManyToManyColumn(
             accessor='subcategorias.all',  # Acceso al atributo 'permisos' del modelo Rol
-            verbose_name='Subcategoria asociada',  # Nombre de la columna
+            verbose_name='Categoría',  # Nombre de la columna
             transform=lambda subcategorias: subcategorias.nombre,  # Función para transformar cada permiso en su nombre
             separator=', ',  # Separador para concatenar los nombres de los permisos
         )
     subcategoria = tables.columns.Column(accessor="nombre", verbose_name="Subcategorías asociadas")
-
+    estado = tables.columns.BooleanColumn(verbose_name="Activo", yesno=("Habilitado","Deshabilitado"))
     class Meta:
         model = Subcategoria
+        orderable = False
         template_name = "django_tables2/bootstrap4.html"
         fields = ( 'categoria', 'subcategoria', 'estado')
         order_by = ('categoria',)
         per_page = 10
-        attrs = {"class": "my-4 border-collapse table-auto	table-striped text-xl table-bordered", "style": "width: 90%;"}
+        attrs = {"class": "text-center my-4 border-collapse table-auto	table-striped text-xl table-bordered", "style": "width: 90%;"}

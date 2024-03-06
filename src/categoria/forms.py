@@ -5,8 +5,10 @@ from categoria.models import Subcategoria, Categoria
 
 
 class SubcategoriaForm(forms.ModelForm):
-    categoria = forms.ChoiceField(
+    categoria = forms.ModelChoiceField(
         label='Categoría asociada',
+        queryset=Categoria.objects.all(),
+        empty_label = "Seleccione"
     )
 
     class Meta:
@@ -17,7 +19,7 @@ class SubcategoriaForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs.update({"class": "ml-2 border rounded border-black"})
-        self.fields['categoria'].choices = Categoria.objects.all().values_list('id', 'nombre')
+        # self.fields['categoria'].choices = Categoria.objects.all().values_list('id', 'nombre')
 
 
 class CategoriaForm(forms.ModelForm):

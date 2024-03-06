@@ -44,7 +44,7 @@ class RegistrationForm(UserCreationForm):
       label=_("Confirmar Contraseña"),
       widget=forms.PasswordInput(),
   )
-    rol = forms.ModelChoiceField(queryset=Rol.objects.all())
+    rol = forms.ModelChoiceField(queryset=Rol.objects.all(), empty_label="Seleccione")
     class Meta:
         model = Usuario
         fields = ('username', 'email', 'rol', 'estado',)
@@ -58,7 +58,7 @@ class RegistrationForm(UserCreationForm):
 
 class UsuarioEditarForm(UserChangeForm):
 
-    rol = forms.ModelChoiceField(queryset=Rol.objects.all())
+    rol = forms.ModelChoiceField(queryset=Rol.objects.all(), empty_label="Seleccione")
 
     class Meta:
         model = Usuario
