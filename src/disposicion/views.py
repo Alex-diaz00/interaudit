@@ -120,7 +120,16 @@ def editar_tipo_disposicion_funcion(request):
     disposicion = TipoDisposicionFuncion.objects.get(id= int(request.POST['id']))
     disposicion.descripcion = request.POST['descripcion']
     disposicion.save()
-    return redirect("/home/tipo-disposicion-funcion")
+
+    disposicion = TipoDisposicionFuncion.objects.all()
+    disposicion_form = TipoDisposicionFuncionForm()
+    table_disposicion = TipoDisposicionFuncionTable(disposicion)
+    filter = TipoDisposicionFuncionFilter()
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': disposicion,
+                     'table': table_disposicion, 'filter': filter,
+                     'disposicion': disposicion_form, 'edited': True}
+
+    return render(request, 'pages/tipo-disposicion-funcion.html', extra_context)
 
 def edicion_tipo_disposicion_funcion(request, id):
     disposicion = TipoDisposicionFuncion.objects.get(id=id)
@@ -194,7 +203,16 @@ def editar_tipo_disposicion_emite(request):
     disposicion = TipoDisposicionEmite.objects.get(id= int(request.POST['id']))
     disposicion.descripcion = request.POST['descripcion']
     disposicion.save()
-    return redirect("/home/tipo-disposicion-emite")
+
+    disposicion = TipoDisposicionEmite.objects.all()
+    disposicion_form = TipoDisposicionEmiteForm()
+    table_disposicion = TipoDisposicionEmiteTable(disposicion)
+    filter = TipoDisposicionEmiteFilter()
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': disposicion,
+                     'table': table_disposicion, 'filter': filter,
+                     'disposicion': disposicion_form, 'edited': True}
+
+    return render(request, 'pages/tipo-disposicion-emite.html', extra_context)
 
 def edicion_tipo_disposicion_emite(request, id):
     disposicion = TipoDisposicionEmite.objects.get(id=id)
@@ -266,7 +284,15 @@ def editar_estado_disposicion(request):
     disposicion = EstadoDisposicion.objects.get(id= int(request.POST['id']))
     disposicion.descripcion = request.POST['descripcion']
     disposicion.save()
-    return redirect("/home/estado-disposicion")
+
+    disposicion = EstadoDisposicion.objects.all()
+    disposicion_form = EstadoDisposicionForm()
+    table_disposicion = EstadoDisposicionTable(disposicion)
+    filter = EstadoDisposicionFilter()
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': disposicion,
+                     'table': table_disposicion, 'filter': filter,
+                     'disposicion': disposicion_form, 'edited': True}
+    return render(request, 'pages/estado-disposicion.html', extra_context)
 
 def edicion_estado_disposicion(request, id):
     disposicion = EstadoDisposicion.objects.get(id=id)
@@ -330,14 +356,21 @@ def insertar_emisor(request):
                      'table': table_emisor, 'filter': filter,
                      'emisor': emisor_form, 'added': True}
     return render(request, 'pages/emisor.html', extra_context)
-    # return redirect("/home/emisor")
 
 
 def editar_emisor(request):
     emisor = Emisor.objects.get(id= int(request.POST['id']))
     emisor.descripcion = request.POST['descripcion']
     emisor.save()
-    return redirect("/home/emisor")
+
+    emisores = Emisor.objects.all()
+    emisor_form = EmisorForm()
+    table_emisor = EmisorTable(emisores)
+    filter = EmisorFilter()
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': emisores,
+                     'table': table_emisor, 'filter': filter,
+                     'emisor': emisor_form, 'added': True}
+    return render(request, 'pages/emisor.html', extra_context)
 
 def edicion_emisor(request, id):
     emisor = Emisor.objects.get(id=id)

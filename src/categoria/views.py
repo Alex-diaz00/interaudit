@@ -135,7 +135,17 @@ def editar_subcategoria(request):
     if "estado" in request.POST:
         subcategoria.estado = True
     subcategoria.save()
-    return redirect("/home/subcategorias")
+
+    form = SubcategoriaForm()
+    filter = SubcategoriaFilter()
+    subcategorias = Subcategoria.objects.all()
+    subcategoria_form = SubcategoriaForm()
+    table_subcategoria = SubcategoriaTable(subcategorias)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': subcategorias,
+                     'form': form, 'table': table_subcategoria, 'filter': filter,
+                     'subcategoria_form': subcategoria_form, 'edited': True}
+
+    return render(request, 'pages/subcategoria.html', extra_context)
 
 def edicion_subcategoria(request, id):
     subcategoria = Subcategoria.objects.get(id=id)
@@ -158,7 +168,17 @@ def editar_categoria(request):
     if "estado" in request.POST:
         categoria.estado = True
     categoria.save()
-    return redirect("/home/categorias")
+
+    form = CategoriaForm()
+    filter = CategoriaFilter()
+    categorias = Categoria.objects.all()
+    categoria_form = CategoriaForm()
+    table_categoria = CategoriaTable(categorias)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': categorias,
+                     'form': form, 'table': table_categoria, 'filter': filter,
+                     'categoria_form': categoria_form, 'edited': True}
+
+    return render(request, 'pages/categoria.html', extra_context)
 
 def edicion_categoria(request, id):
     categoria = Categoria.objects.get(id=id)

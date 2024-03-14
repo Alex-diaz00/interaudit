@@ -58,6 +58,16 @@
 </script>
 {% endif %}
 
+{% if edited and not errors %}
+<script>
+    Swal.fire({
+  icon: "success",
+  title: "La subcategoría ha sido editada",
+  showConfirmButton: false,
+  timer: 1500
+});
+</script>
+{% endif %}
 
 {% block extrastyle %}
 

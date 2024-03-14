@@ -57,6 +57,16 @@
 </script>
 {% endif %}
 
+{% if edited and not errors %}
+<script>
+    Swal.fire({
+  icon: "success",
+  title: "El estado de disposición ha sido editado",
+  showConfirmButton: false,
+  timer: 1500
+});
+</script>
+{% endif %}
 
 {% block extrastyle %}
 

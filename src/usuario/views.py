@@ -220,7 +220,17 @@ def editar_permiso(request):
     if "estado" in request.POST:
         permiso.estado = True
     permiso.save()
-    return redirect("/home/permisos")
+
+    form = PermisoForm()
+    filter = PermisoFilter()
+    permisos = Permiso.objects.all()
+    permiso_form = PermisoForm()
+    table_permisos = PermisoTable(permisos)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': permisos,
+                     'form': form, 'table': table_permisos,
+                     'permiso_form': permiso_form, 'edited': True, 'filter': filter}
+
+    return render(request, 'pages/permiso.html', extra_context)
 
 def edicion_permiso(request, id):
     permiso = Permiso.objects.get(id=id)
@@ -242,7 +252,17 @@ def editar_rol(request):
         form = RolForm(request.POST, instance=rol)
         if form.is_valid():
             rol = form.save()
-    return redirect("/home/roles")
+
+    filter = RolFilter()
+    roles = Rol.objects.all()
+    rol_form = RolForm()
+    table_roles = RolTable(roles)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': roles,
+                     'form': form, 'table': table_roles,
+                     'rol_form': rol_form, 'edited': True, 'filter': filter}
+
+    return render(request, 'pages/rol.html', extra_context)
+    # return redirect("/home/roles")
 
 def edicion_rol(request, id):
     rol = Rol.objects.get(id=id)
@@ -270,7 +290,18 @@ def editar_usuario(request):
                 'usuario_form': form
             }
             return render(request, 'pages/edicion-usuario.html', data)
-    return redirect("/home/usuarios")
+
+    filter = UsuarioFilter()
+    errors = form.errors
+    usuarios = Usuario.objects.all()
+    usuario_form = RegistrationForm()
+    table_usuarios = UsuarioTable(usuarios)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': usuarios,
+                     'form': form, 'errors': errors, 'table': table_usuarios,
+                     'usuario_form': usuario_form, 'edited': True, 'filter': filter}
+
+    return render(request, 'pages/usuario.html', extra_context)
+    # return redirect("/home/usuarios")
 
 def edicion_usuario(request, id):
     usuario = Usuario.objects.get(id=id)
