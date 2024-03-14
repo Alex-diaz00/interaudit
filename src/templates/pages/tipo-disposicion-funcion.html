@@ -4,13 +4,13 @@
 {% load bootstrap4 %}
 
 {% block content %}
-    <h6 class="relative ml-10 mt-4 pl-2 border-2 border-black w-4/5 text-blue-500 text-xl">Insertar permiso</h6>
+    <h6 class="relative ml-10 mt-4 pl-2 border-2 border-black w-4/5 text-blue-500 text-xl">Insertar tipo de disposición según función</h6>
     <div class="border-2 border-black ml-10 relative h-full p-3 w-4/5">
 
-        <form action="{% url 'insertar_permiso' %}" method="POST">
+        <form action="{% url 'insertar_tipo_disposicion_funcion' %}" method="POST">
             {% csrf_token %}
             <div class="flex flex-wrap space-x-12 block mt-6">
-                {{ permiso_form }}
+                {{ disposicion }}
             <div class="flex w-full justify-end">
                 <input type="submit" value="Insertar" class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]" >
             </div>
@@ -20,13 +20,13 @@
 
 
   <div class="ml-10 mt-4 relative h-full">
-    <h6 class="text-blue-500 text-xl">Listado de permisos</h6>
+    <h6 class="text-blue-500 text-xl">Listado de disposiciones</h6>
   </div>
 
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
 
 {% if filter %}
-    <form action="/home/permisos/" method="get" class="ml-10 form space-x-4 form-inline">
+    <form action="/home/tipo-disposicion-funcion/" method="get" class="ml-10 form space-x-4 form-inline">
         {% bootstrap_form filter.form layout='inline' %}
         <button type="submit" class="btn btn-primary">Filtrar</button>
     </form>
@@ -39,7 +39,7 @@
 <script>
     Swal.fire({
   icon: "success",
-  title: "El permiso ha sido creado",
+  title: "El tipo de disposición según función ha sido creado",
   showConfirmButton: false,
   timer: 1500
 });
@@ -50,7 +50,7 @@
 <script>
     Swal.fire({
   icon: "success",
-  title: "El permiso ha sido eliminado",
+  title: "El tipo de disposición según función ha sido eliminado",
   showConfirmButton: false,
   timer: 1500
 });
@@ -101,7 +101,7 @@
             btn.addEventListener("click", function(e) {
                 e.preventDefault();
                 console.log(btn)
-                delete_alert("¿Desea eliminar el permiso " + btn.name +"?", e);
+                delete_alert("¿Desea eliminar el tipo de disposicion " + btn.name +"?", e);
             })
         })
 

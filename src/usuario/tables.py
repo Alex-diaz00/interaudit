@@ -28,10 +28,11 @@ class PermisoTable(tables.Table):
                                                          '<a href="{% url "edicion_permiso" record.id %}" id="btn-edit-table" class="btn btn-edit fa fa-edit p-1 m-1 bg-green-500 rounded text-white" >'
                                                          '<a href="{% url "delete_permiso" record.id %}" name="{{ record.nombre }}" id="btn-delete-table" class="btn btn-danger fa fa-trash px-2 m-1 bg-red-600 rounded text-white" >'
                                                          '</div>')
-    estado = tables.columns.BooleanColumn(verbose_name="Activo", yesno=("Habilitado", "Deshabilitado"))
+    estado = tables.columns.BooleanColumn(orderable=False , verbose_name="Activo", yesno=("Habilitado", "Deshabilitado"))
+    nombre = tables.columns.Column(orderable=False )
     class Meta:
         model = Permiso
-        orderable = False
+        # orderable = False
         template_name = "django_tables2/bootstrap4.html"
         fields = ('nombre', 'estado')
         per_page = 10

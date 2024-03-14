@@ -2,6 +2,8 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 
 from categoria.views import CategoriaTView, SubcategoriaTView
+from disposicion.views import TipoDisposicionFuncionTView, TipoDisposicionEmiteTView, EstadoDisposicionTView, \
+    EmisorTView
 from usuario.views import UsuarioTView, PermisoTView, RolTView
 from . import views
 
@@ -13,6 +15,12 @@ urlpatterns = [
     path('roles/', RolTView.as_view(), name='roles'),
     path('categorias/', CategoriaTView.as_view(), name='categorias'),
     path('subcategorias/', SubcategoriaTView.as_view(), name='subcategorias'),
+    path('tipo-disposicion-funcion/', TipoDisposicionFuncionTView.as_view(), name='tipo-disposicion-funcion'),
+    path('tipo-disposicion-emite/', TipoDisposicionEmiteTView.as_view(), name='tipo-disposicion-emite'),
+    path('estado-disposicion/', EstadoDisposicionTView.as_view(), name='estado-disposicion'),
+    path('emisor/', EmisorTView.as_view(), name='emisor'),
+
+
     path('vr/', views.vr, name='vr'),
     path('billing/', views.billing, name='billing'),
     path('rtl/', views.rtl, name='rtl'),

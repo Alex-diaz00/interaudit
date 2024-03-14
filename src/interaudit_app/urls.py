@@ -5,6 +5,11 @@ import disposicion
 import usuario
 from categoria.views import insertar_categoria, delete_categoria, delete_subcategoria, insertar_subcategoria, \
     edicion_subcategoria, editar_subcategoria, edicion_categoria, editar_categoria
+from disposicion.views import insertar_tipo_disposicion_funcion, insertar_tipo_disposicion_emite, \
+    insertar_estado_disposicion, edicion_tipo_disposicion_funcion, editar_tipo_disposicion_funcion, \
+    edicion_tipo_disposicion_emite, editar_tipo_disposicion_emite, edicion_estado_disposicion, \
+    editar_estado_disposicion, editar_emisor, edicion_emisor, insertar_emisor, delete_tipo_disposicion_funcion, \
+    delete_tipo_disposicion_emite, delete_estado_disposicion, delete_emisor
 from usuario import urls
 from home.views import CustomSignupView
 from django.contrib import admin
@@ -30,12 +35,20 @@ urlpatterns = [
     path('delete_rol/<int:id>', delete_rol, name="delete_rol"),
     path('delete_categoria/<int:id>', delete_categoria, name="delete_categoria"),
     path('delete_subcategoria/<int:id>', delete_subcategoria, name="delete_subcategoria"),
+    path('delete_tipo_disposicion_funcion/<int:id>', delete_tipo_disposicion_funcion, name="delete_tipo_disposicion_funcion"),
+    path('delete_tipo_disposicion_emite/<int:id>', delete_tipo_disposicion_emite, name="delete_tipo_disposicion_emite"),
+    path('delete_estado_disposicion/<int:id>', delete_estado_disposicion, name="delete_estado_disposicion"),
+    path('delete_emisor/<int:id>', delete_emisor, name="delete_emisor"),
+
     path('insertar_permiso/', insertar_permiso, name='insertar_permiso'),
     path('insertar_rol/', insertar_rol, name='insertar_rol'),
     path('insertar_usuario/', insertar_usuario, name='insertar_usuario'),
     path('insertar_categoria/', insertar_categoria, name='insertar_categoria'),
     path('insertar_subcategoria/', insertar_subcategoria, name='insertar_subcategoria'),
-
+    path('insertar_tipo_disposicion_funcion/', insertar_tipo_disposicion_funcion, name='insertar_tipo_disposicion_funcion'),
+    path('insertar_tipo_disposicion_emite/', insertar_tipo_disposicion_emite, name='insertar_tipo_disposicion_emite'),
+    path('insertar_estado_disposicion/', insertar_estado_disposicion, name='insertar_estado_disposicion'),
+    path('insertar_emisor/', insertar_emisor, name='insertar_emisor'),
 
     path('edicion_usuario/<int:id>', edicion_usuario, name='edicion_usuario'),
     path('editar_usuario/', editar_usuario, name='editar_usuario'),
@@ -47,6 +60,15 @@ urlpatterns = [
     path('editar_subcategoria/', editar_subcategoria, name='editar_subcategoria'),
     path('edicion_categoria/<int:id>', edicion_categoria, name='edicion_categoria'),
     path('editar_categoria/', editar_categoria, name='editar_categoria'),
+    path('edicion_tipo_disposicion_funcion/<int:id>', edicion_tipo_disposicion_funcion, name='edicion_tipo_disposicion_funcion'),
+    path('editar_tipo_disposicion_funcion/', editar_tipo_disposicion_funcion, name='editar_tipo_disposicion_funcion'),
+    path('edicion_tipo_disposicion_emite/<int:id>', edicion_tipo_disposicion_emite, name='edicion_tipo_disposicion_emite'),
+    path('editar_tipo_disposicion_emite/', editar_tipo_disposicion_emite, name='editar_tipo_disposicion_emite'),
+    path('edicion_estado_disposicion/<int:id>', edicion_estado_disposicion, name='edicion_estado_disposicion'),
+    path('editar_estado_disposicion/', editar_estado_disposicion, name='editar_estado_disposicion'),
+    path('edicion_emisor/<int:id>', edicion_emisor, name='edicion_emisor'),
+    path('editar_emisor/', editar_emisor, name='editar_emisor'),
+
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')),
     path('accounts/', include('allauth.urls')),

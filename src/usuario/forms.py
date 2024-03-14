@@ -6,6 +6,7 @@ from usuario.models import Permiso, Usuario, Rol
 
 
 class PermisoForm(forms.ModelForm):
+    required_css_class = 'required'
 
     class Meta:
         model = Permiso
@@ -18,6 +19,7 @@ class PermisoForm(forms.ModelForm):
 
 
 class RolForm(forms.ModelForm):
+    required_css_class = 'required'
     id_permiso = forms.MultipleChoiceField(
         required=False, label='Permisos:',
         widget=forms.CheckboxSelectMultiple,
@@ -45,6 +47,8 @@ class RegistrationForm(UserCreationForm):
       widget=forms.PasswordInput(),
   )
     rol = forms.ModelChoiceField(queryset=Rol.objects.all(), empty_label="Seleccione")
+    email = forms.EmailField(max_length=255, required=False)
+
     class Meta:
         model = Usuario
         fields = ('username', 'email', 'rol', 'estado',)
@@ -59,7 +63,7 @@ class RegistrationForm(UserCreationForm):
 class UsuarioEditarForm(UserChangeForm):
 
     rol = forms.ModelChoiceField(queryset=Rol.objects.all(), empty_label="Seleccione")
-
+    email = forms.EmailField(max_length=255, required=False)
     class Meta:
         model = Usuario
         fields = ('username', 'email', 'rol', 'estado',)

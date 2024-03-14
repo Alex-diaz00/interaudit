@@ -35,12 +35,32 @@ def insertar_categoria(request):
     form = CategoriaForm(request.POST)
     if form.is_valid():
         form.save()
-    return redirect("/home/categorias")
+
+    filter = CategoriaFilter()
+    categorias = Categoria.objects.all()
+    categoria_form = CategoriaForm()
+    table_categoria = CategoriaTable(categorias)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': categorias,
+                     'form': form, 'table': table_categoria, 'filter': filter,
+                     'categoria_form': categoria_form, 'added': True}
+
+    return render(request, 'pages/categoria.html', extra_context)
 
 def delete_categoria(request, id):
     obj = get_object_or_404(Categoria, id=id)
     obj.delete()
-    return redirect("/home/categorias")
+
+    filter = CategoriaFilter()
+    form = CategoriaForm()
+    categorias = Categoria.objects.all()
+    categoria_form = CategoriaForm()
+    table_categoria = CategoriaTable(categorias)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': categorias,
+                     'form': form, 'table': table_categoria, 'filter': filter,
+                     'categoria_form': categoria_form, 'deleted': True}
+
+    return render(request, 'pages/categoria.html', extra_context)
+    # return redirect("/home/categorias")
 
 
 class SubcategoriaTView(SingleTableView):
@@ -79,12 +99,33 @@ def insertar_subcategoria(request):
         categoria.id_subcategoria.add(subcategoria)
         categoria.save()
         # form.save_m2m()
-    return redirect("/home/subcategorias")
+
+    filter = SubcategoriaFilter()
+    subcategorias = Subcategoria.objects.all()
+    subcategoria_form = SubcategoriaForm()
+    table_subcategoria = SubcategoriaTable(subcategorias)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': subcategorias,
+                     'form': form, 'table': table_subcategoria, 'filter': filter,
+                     'subcategoria_form': subcategoria_form, 'added': True}
+
+    return render(request, 'pages/subcategoria.html', extra_context)
+
+    # return redirect("/home/subcategorias")
 
 def delete_subcategoria(request, id):
     obj = get_object_or_404(Subcategoria, id=id)
     obj.delete()
-    return redirect("/home/subcategorias")
+
+    filter = SubcategoriaFilter()
+    form = SubcategoriaForm()
+    subcategorias = Subcategoria.objects.all()
+    subcategoria_form = SubcategoriaForm()
+    table_subcategoria = SubcategoriaTable(subcategorias)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': subcategorias,
+                     'form': form, 'table': table_subcategoria, 'filter': filter,
+                     'subcategoria_form': subcategoria_form, 'deleted': True}
+
+    return render(request, 'pages/subcategoria.html', extra_context)
 
 
 def editar_subcategoria(request):

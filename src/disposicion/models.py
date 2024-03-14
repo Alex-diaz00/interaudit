@@ -12,21 +12,21 @@ class GacetaOficial(models.Model):
 
 
 class Emisor(models.Model):
-    descripcion = models.CharField()
+    descripcion = models.CharField(verbose_name="Emisor")
 
     class Meta:
         db_table = 'emisor'
 
 
 class TipoDisposicionFuncion(models.Model):
-    descripcion = models.CharField()
+    descripcion = models.CharField(verbose_name="Disposición")
 
     class Meta:
         db_table = 'tipo_disposicon_funcion'
 
 
 class TipoDisposicionEmite(models.Model):
-    descripcion = models.CharField()
+    descripcion = models.CharField(verbose_name="Disposición")
 
     class Meta:
         db_table = 'tipo_disposicon_emite'
@@ -42,7 +42,7 @@ class TiempoDisposicionEstado(models.Model):
 
 
 class EstadoDisposicion(models.Model):
-    descripcion = models.CharField()
+    descripcion = models.CharField(verbose_name="Nombre de estado de disposición")
     id_tiempo = models.ForeignKey(TiempoDisposicionEstado, on_delete=models.CASCADE, db_column='id_tiempo_disposicion_estado',
                                blank=True, null=True)
     class Meta:

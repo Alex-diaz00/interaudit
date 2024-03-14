@@ -26,7 +26,7 @@
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
 
 {% if filter %}
-    <form action="" method="get" class="ml-10 form space-x-4 form-inline">
+    <form action="/home/categorias/" method="get" class="ml-10 form space-x-4 form-inline">
         {% bootstrap_form filter.form layout='inline' %}
         <button type="submit" class="btn btn-primary">Filtrar</button>
     </form>
@@ -36,6 +36,28 @@
     {% render_table table "includes/table.html" %}
 </div>
 
+
+{% if added and not errors %}
+<script>
+    Swal.fire({
+  icon: "success",
+  title: "La categoría ha sido creada",
+  showConfirmButton: false,
+  timer: 1500
+});
+</script>
+{% endif %}
+
+{% if deleted and not errors %}
+<script>
+    Swal.fire({
+  icon: "success",
+  title: "La categoría ha sido eliminada",
+  showConfirmButton: false,
+  timer: 1500
+});
+</script>
+{% endif %}
 
 {% block extrastyle %}
 

@@ -5,6 +5,7 @@ from categoria.models import Subcategoria, Categoria
 
 
 class SubcategoriaForm(forms.ModelForm):
+    required_css_class = 'required'
     categoria = forms.ModelChoiceField(
         label='Categoría asociada',
         queryset=Categoria.objects.all(),
@@ -23,6 +24,7 @@ class SubcategoriaForm(forms.ModelForm):
 
 
 class CategoriaForm(forms.ModelForm):
+    required_css_class = 'required'
     class Meta:
         model = Categoria
         fields = ('nombre', 'estado',)

@@ -1,7 +1,5 @@
-from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import ListView
-from django_tables2 import SingleTableView, LazyPaginator
+from django_tables2 import SingleTableView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
@@ -10,7 +8,6 @@ from .filters import PermisoFilter, RolFilter, UsuarioFilter
 from .forms import PermisoForm, RegistrationForm, RolForm, UsuarioEditarForm
 from .serializers import UsuarioAllFieldsSerializer, RolSerializer, PermisoSerializer
 from usuario.models import Usuario, Permiso, Rol
-import django_tables2 as tables
 
 from .tables import UsuarioTable, PermisoTable, RolTable
 
@@ -52,17 +49,48 @@ class UsuarioView(ModelViewSet):
 def delete_user(request, id):
     obj = get_object_or_404(Usuario, id=id)
     obj.delete()
-    return redirect("/home/usuarios")
+
+    filter = UsuarioFilter()
+    form = RegistrationForm()
+    errors = form.errors
+    usuarios = Usuario.objects.all()
+    usuario_form = RegistrationForm()
+    table_usuarios = UsuarioTable(usuarios)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': usuarios,
+                     'form': form, 'errors': errors, 'table': table_usuarios,
+                     'usuario_form': usuario_form, 'deleted': True, 'filter': filter}
+
+    return render(request, 'pages/usuario.html', extra_context)
 
 def delete_permiso(request, id):
     obj = get_object_or_404(Permiso, id=id)
     obj.delete()
-    return redirect("/home/permisos")
+
+    filter = PermisoFilter()
+    form = PermisoForm()
+    permisos = Permiso.objects.all()
+    permiso_form = PermisoForm()
+    table_permisos = PermisoTable(permisos)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': permisos,
+                     'form': form, 'table': table_permisos,
+                     'permiso_form': permiso_form, 'deleted': True, 'filter': filter}
+
+    return render(request, 'pages/permiso.html', extra_context)
 
 def delete_rol(request, id):
     obj = get_object_or_404(Rol, id=id)
     obj.delete()
-    return redirect("/home/roles")
+
+    filter = RolFilter()
+    form = RolForm()
+    roles = Rol.objects.all()
+    rol_form = RolForm()
+    table_roles = RolTable(roles)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': roles,
+                     'form': form, 'table': table_roles,
+                     'rol_form': rol_form, 'deleted': True, 'filter': filter}
+
+    return render(request, 'pages/rol.html', extra_context)
 
 @api_view(['POST'])
 def insertar_permiso(request):
@@ -71,7 +99,17 @@ def insertar_permiso(request):
     form = PermisoForm(request.POST)
     if form.is_valid():
         form.save()
-    return redirect("/home/permisos")
+
+    filter = PermisoFilter()
+    permisos = Permiso.objects.all()
+    permiso_form = PermisoForm()
+    table_permisos = PermisoTable(permisos)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': permisos,
+                     'form': form, 'table': table_permisos,
+                     'permiso_form': permiso_form, 'added': True, 'filter': filter}
+
+    return render(request, 'pages/permiso.html', extra_context)
+
 class UsuarioTView(SingleTableView):
     model = Usuario
     table_class = UsuarioTable
@@ -100,17 +138,18 @@ def insertar_usuario(request):
     form = RegistrationForm(request.POST)
     if form.is_valid():
         form.save()
-        return redirect("/home/usuarios")
-    else:
-        errors = form.errors
-        usuarios = Usuario.objects.all()
-        usuario_form = RegistrationForm()
-        table_usuarios = UsuarioTable(usuarios)
-        extra_context = {'parent': 'pages', 'segment': 'tables',  'object_list': usuarios,
-                         'form': form, 'errors': errors, 'table': table_usuarios,
-                         'usuario_form': usuario_form}
+        # return redirect("/home/usuarios")
 
-        return render(request, 'pages/usuario.html', extra_context)
+    filter = UsuarioFilter()
+    errors = form.errors
+    usuarios = Usuario.objects.all()
+    usuario_form = RegistrationForm()
+    table_usuarios = UsuarioTable(usuarios)
+    extra_context = {'parent': 'pages', 'segment': 'tables',  'object_list': usuarios,
+                     'form': form, 'errors': errors, 'table': table_usuarios,
+                     'usuario_form': usuario_form, 'added': True, 'filter': filter}
+
+    return render(request, 'pages/usuario.html', extra_context)
 
 
 class PermisoTView(SingleTableView):
@@ -162,7 +201,16 @@ def insertar_rol(request):
         rol = form.save(commit=False)
         rol.save()
         form.save_m2m()
-    return redirect("/home/roles")
+
+    filter = RolFilter()
+    roles = Rol.objects.all()
+    rol_form = RolForm()
+    table_roles = RolTable(roles)
+    extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': roles,
+                     'form': form, 'table': table_roles,
+                     'rol_form': rol_form, 'added': True, 'filter': filter}
+
+    return render(request, 'pages/rol.html', extra_context)
 
 
 def editar_permiso(request):
