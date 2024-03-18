@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import gettext_lazy as _
 from usuario.models import Permiso, Usuario, Rol
 from crispy_forms.helper import FormHelper
-
+from django.db.models import fields
 
 class PermisoForm(forms.ModelForm):
     required_css_class = 'required'
@@ -48,6 +48,13 @@ class RolForm(forms.ModelForm):
 
 
 class RegistrationForm(UserCreationForm):
+    username = forms.CharField(
+        label=_("Nombre de usuario"),
+        max_length=150,
+        error_messages={
+            "unique": _("Ya existe un usuario con ese nombre."),
+        },
+    )
     password1 = forms.CharField(
       label=_("Contraseña"),
       widget=forms.PasswordInput(),
@@ -62,6 +69,12 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = Usuario
         fields = ('username', 'email', 'rol', 'estado',)
+        error_messages = {
+            'username': {
+                'errorlist': ("Ya existe"),
+
+            },
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

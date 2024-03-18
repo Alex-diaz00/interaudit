@@ -143,9 +143,10 @@ def insertar_usuario(request):
     filter = UsuarioFilter()
     errors = form.errors
     usuarios = Usuario.objects.all()
-    usuario_form = RegistrationForm(request.POST)
+    usuario_form = RegistrationForm(request.POST) if errors else RegistrationForm()
     table_usuarios = UsuarioTable(usuarios)
     num = 0
+    print(errors)
     for field, error in form.errors.items():
         print(f"Campo: {field}")
         for e in error:
@@ -155,6 +156,7 @@ def insertar_usuario(request):
             print(f"Error: {e}")
             num += 1
         num = 0
+
     if errors:
         extra_context = {'parent': 'pages', 'segment': 'tables',  'object_list': usuarios,
                      'form': form, 'table': table_usuarios,
