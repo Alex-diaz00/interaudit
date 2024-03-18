@@ -19,7 +19,7 @@ class Permiso(models.Model):
 class Rol(models.Model):
     nombre = models.CharField(max_length=500)
     estado = models.BooleanField(default=True, verbose_name="Activo")
-    id_permiso = models.ManyToManyField(Permiso, verbose_name='Permiso')
+    id_permiso = models.ManyToManyField(Permiso, verbose_name='Permiso', related_name='roles')
 
     class Meta:
         db_table = 'rol'

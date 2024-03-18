@@ -3,6 +3,7 @@ function delete_alert(title, e) {
 Swal.fire({
     title: title,
     showCancelButton: true,
+    cancelButtonText: 'Cancelar',
     icon: "warning",
     confirmButtonText: "Eliminar",
     confirmButtonColor: "#d33",

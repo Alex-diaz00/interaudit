@@ -11,12 +11,12 @@ class TipoDisposicionFuncionTable(tables.Table):
                                                          '</div>')
     class Meta:
         model = TipoDisposicionFuncion
-        orderable = False
+        # orderable = False
         template_name = "django_tables2/bootstrap4.html"
         fields = ('descripcion',)
         per_page = 10
         order_by = ('descripcion',)
-        attrs = {"class": "text-center my-4 border-collapse table-auto table-striped text-xl table-bordered", "style": "width: 90%;"}
+        attrs = {"class": "text-center my-4 border-collapse table-responsive{-sm|-md|-lg|-xl} table-auto table-hover text-xl table-bordered", "style": "width: 90%;"}
 
 
 class TipoDisposicionEmiteTable(tables.Table):
@@ -27,12 +27,12 @@ class TipoDisposicionEmiteTable(tables.Table):
                                                          '</div>')
     class Meta:
         model = TipoDisposicionEmite
-        orderable = False
+        # orderable = False
         template_name = "django_tables2/bootstrap4.html"
         fields = ('descripcion',)
         per_page = 10
         order_by = ('descripcion',)
-        attrs = {"class": "text-center my-4 border-collapse table-auto table-striped text-xl table-bordered", "style": "width: 90%;"}
+        attrs = {"class": "text-center my-4 border-collapse table-responsive{-sm|-md|-lg|-xl} table-auto table-hover text-xl table-bordered", "style": "width: 90%;"}
 
 
 class EstadoDisposicionTable(tables.Table):
@@ -43,12 +43,12 @@ class EstadoDisposicionTable(tables.Table):
                                                          '</div>')
     class Meta:
         model = EstadoDisposicion
-        orderable = False
+        # orderable = False
         template_name = "django_tables2/bootstrap4.html"
         fields = ('descripcion',)
         per_page = 10
         order_by = ('descripcion',)
-        attrs = {"class": "text-center my-4 border-collapse table-auto table-striped text-xl table-bordered", "style": "width: 90%;"}
+        attrs = {"class": "text-center my-4 border-collapse table-responsive{-sm|-md|-lg|-xl} table-auto table-hover text-xl table-bordered", "style": "width: 90%;"}
 
 
 class EmisorTable(tables.Table):
@@ -59,10 +59,10 @@ class EmisorTable(tables.Table):
                                                          '</div>')
     class Meta:
         model = Emisor
-        orderable = False
+        # orderable = False
         template_name = "django_tables2/bootstrap4.html"
         fields = ('descripcion',)
         per_page = 10
         order_by = ('descripcion',)
-        attrs = {"class": "text-center my-4 border-collapse table-auto table-striped text-xl table-bordered", "style": "width: 90%;"}
+        attrs = {"class": "text-center my-4 border-collapse table-responsive{-sm|-md|-lg|-xl} table-auto table-hover text-xl table-bordered", "style": "width: 90%;"}
 

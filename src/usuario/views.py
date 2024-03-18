@@ -143,10 +143,25 @@ def insertar_usuario(request):
     filter = UsuarioFilter()
     errors = form.errors
     usuarios = Usuario.objects.all()
-    usuario_form = RegistrationForm()
+    usuario_form = RegistrationForm(request.POST)
     table_usuarios = UsuarioTable(usuarios)
-    extra_context = {'parent': 'pages', 'segment': 'tables',  'object_list': usuarios,
-                     'form': form, 'errors': errors, 'table': table_usuarios,
+    num = 0
+    for field, error in form.errors.items():
+        print(f"Campo: {field}")
+        for e in error:
+            if e == 'Ya existe Usuario con este Usuario.':
+                e = 'Ya existe ese nombre de usuario.'
+                errors[field][0] = 'Ya existe ese nombre de usuario.'
+            print(f"Error: {e}")
+            num += 1
+        num = 0
+    if errors:
+        extra_context = {'parent': 'pages', 'segment': 'tables',  'object_list': usuarios,
+                     'form': form, 'table': table_usuarios,
+                     'usuario_form': usuario_form, 'filter': filter}
+    else:
+        extra_context = {'parent': 'pages', 'segment': 'tables', 'object_list': usuarios,
+                     'form': form, 'table': table_usuarios,
                      'usuario_form': usuario_form, 'added': True, 'filter': filter}
 
     return render(request, 'pages/usuario.html', extra_context)

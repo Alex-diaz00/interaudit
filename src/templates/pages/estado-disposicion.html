@@ -2,76 +2,78 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load bootstrap4 %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-    <h6 class="relative ml-10 mt-4 pl-2 border-2 border-black w-4/5 text-blue-500 text-xl">Insertar estado de la disposición</h6>
-    <div class="border-2 border-black ml-10 relative h-full p-3 w-4/5">
+<div class="relative ml-10 mt-6 h-full p-3 w-11/12 shadow rounded-xl">
+    <h6 class="relative pl-2 w-4/5 text-blue-500 text-xl">Insertar estado de la disposición</h6>
 
-        <form action="{% url 'insertar_estado_disposicion' %}" method="POST">
-            {% csrf_token %}
-            <div class="flex flex-wrap space-x-12 block mt-6">
-                {{ disposicion }}
+    <form action="{% url 'insertar_estado_disposicion' %}" method="POST">
+        {% csrf_token %}
+        <div class="flex flex-wrap space-x-12 block mt-6">
+            {{ disposicion|crispy }}
             <div class="flex w-full justify-end">
                 <input type="submit" value="Insertar" class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]" >
             </div>
-            </div>
-        </form>
+        </div>
+    </form>
+</div>
+
+
+<div class="relative ml-10 mt-6 h-full p-3 w-11/12 shadow rounded-xl">
+    <div class="relative h-full">
+        <h6 class="pl-2 text-blue-500 text-xl">Listado de estado de disposiciones</h6>
     </div>
 
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
 
-  <div class="ml-10 mt-4 relative h-full">
-    <h6 class="text-blue-500 text-xl">Listado de estado de disposiciones</h6>
-  </div>
-
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
-
-{% if filter %}
+    {% if filter %}
     <form action="/home/estado-disposicion/" method="get" class="ml-10 form space-x-4 form-inline">
         {% bootstrap_form filter.form layout='inline' %}
         <button type="submit" class="btn btn-primary">Filtrar</button>
     </form>
-{% endif %}
-<div class="ml-10 mt-4 relative">
+    {% endif %}
+    <div class="ml-10 mt-4 relative">
         {% render_table table "includes/table.html" %}
+    </div>
 </div>
-
 {% if added and not errors %}
 <script>
     Swal.fire({
-  icon: "success",
-  title: "El estado de disposición ha sido creado",
-  showConfirmButton: false,
-  timer: 1500
-});
+        icon: "success",
+        title: "El estado de disposición ha sido creado",
+        showConfirmButton: false,
+        timer: 1500
+    });
 </script>
 {% endif %}
 
 {% if deleted and not errors %}
 <script>
     Swal.fire({
-  icon: "success",
-  title: "El estado de disposición ha sido eliminado",
-  showConfirmButton: false,
-  timer: 1500
-});
+        icon: "success",
+        title: "El estado de disposición ha sido eliminado",
+        showConfirmButton: false,
+        timer: 1500
+    });
 </script>
 {% endif %}
 
 {% if edited and not errors %}
 <script>
     Swal.fire({
-  icon: "success",
-  title: "El estado de disposición ha sido editado",
-  showConfirmButton: false,
-  timer: 1500
-});
+        icon: "success",
+        title: "El estado de disposición ha sido editado",
+        showConfirmButton: false,
+        timer: 1500
+    });
 </script>
 {% endif %}
 
 {% block extrastyle %}
 
-    <link href="{% static 'assets/css/ajax_datatable_style.css' %}" rel="stylesheet" />
-    <link href="{% static 'assets/css/jquery.dataTables.min.css' %}" />
+<link href="{% static 'assets/css/ajax_datatable_style.css' %}" rel="stylesheet" />
+<link href="{% static 'assets/css/jquery.dataTables.min.css' %}" />
 
 {% endblock extrastyle %}
 
@@ -79,46 +81,46 @@
 
 
 
-    <script>
-        const btnsDelete = document.querySelectorAll(".btn-danger")
-        const ths = document.querySelectorAll("th")
-        const tds = document.querySelectorAll("td")
-        const trs = document.querySelectorAll("tr")
+<script>
+    const btnsDelete = document.querySelectorAll(".btn-danger")
+    const ths = document.querySelectorAll("th")
+    const tds = document.querySelectorAll("td")
+    const trs = document.querySelectorAll("tr")
 
-        ths.forEach(function(element) {
-            element.style.border = '2px solid black';
-        });
-        tds.forEach(function(element) {
-            element.style.border = '1px solid black';
-            element.style.textAlign = 'center';
+    ths.forEach(function(element) {
+        element.style.border = '2px solid #007bff';
+    });
+    tds.forEach(function(element) {
+        element.style.border = '1px solid #007bff';
+        element.style.textAlign = 'center';
 
-        });
+    });
 
-        trs.forEach(function(element) {
-            element.style.border = '2px solid black';
-        });
+    trs.forEach(function(element) {
+        element.style.border = '1px solid #007bff';
+    });
 
 
-        btnsDelete.forEach((btn) => {
-            btn.style.padding = "5px";
-            btn.style.backgroundColor = "red";
-            btn.style.borderRadius = "5px";
-            btn.style.borderWidth = "inherit";
-            btn.style.borderColor = "red";
-            btn.style.margin = "inherit";
-            btn.style.color = "white";
+    btnsDelete.forEach((btn) => {
+        btn.style.padding = "5px";
+        btn.style.backgroundColor = "red";
+        btn.style.borderRadius = "5px";
+        btn.style.borderWidth = "inherit";
+        btn.style.borderColor = "red";
+        btn.style.margin = "inherit";
+        btn.style.color = "white";
 
-            btn.addEventListener("click", function(e) {
-                e.preventDefault();
-                console.log(btn)
-                delete_alert("¿Desea eliminar el estado de disposicion " + btn.name +"?", e);
-            })
+        btn.addEventListener("click", function(e) {
+            e.preventDefault();
+            console.log(btn)
+            delete_alert("¿Desea eliminar el estado de disposicion " + btn.name +"?", e);
         })
+    })
 
 
 
 
-    </script>
+</script>
 
 
 {% endblock extrajs %}

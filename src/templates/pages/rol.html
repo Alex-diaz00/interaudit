@@ -2,127 +2,129 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load bootstrap4 %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<h6 class="relative ml-10 mt-4 pl-2 border-2 border-black w-4/5 text-blue-500 text-xl">Insertar rol</h6>
-    <div class="border-2 border-black ml-10 relative h-full p-3 w-4/5">
+<div class="relative ml-10 mt-6 h-full p-3 w-11/12 shadow rounded-xl">
+    <h6 class="relative pl-2 w-4/5 text-blue-500 text-xl">Insertar rol</h6>
 
-        <form action="{% url 'insertar_rol' %}" method="POST">
-            {% csrf_token %}
-            <div class="flex flex-wrap space-x-12 block mt-6">
-                {{ rol_form }}
+    <form action="{% url 'insertar_rol' %}" method="POST">
+        {% csrf_token %}
+        <div class="flex flex-wrap space-x-12 block mt-6">
+            {{ rol_form | crispy }}
             <div class="flex w-full justify-end">
                 <input type="submit" value="Insertar" class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]" >
             </div>
-            </div>
-        </form>
+        </div>
+    </form>
+</div>
+
+
+
+
+<div class="relative ml-10 mt-6 h-full p-3 w-11/12 shadow rounded-xl">
+    <div class="relative h-full">
+        <h6 class="pl-2 text-blue-500 text-xl">Listado de roles</h6>
     </div>
 
-
-
-
-  <div class="ml-10 mt-4 relative h-full">
-    <h6 class="text-blue-500 text-xl">Listado de roles</h6>
-  </div>
-
-{% if filter %}
+    {% if filter %}
     <form action="/home/roles/" method="get" class="ml-10 form space-x-4 form-inline">
         {% bootstrap_form filter.form layout='inline' %}
         <button type="submit" class="btn btn-primary">Filtrar</button>
     </form>
-{% endif %}
+    {% endif %}
 
-<div class="ml-10 mt-4 relative">
+    <div class="ml-10 mt-4 relative">
         {% render_table table "includes/table.html" %}
+    </div>
 </div>
-
 {% if added and not errors %}
 <script>
     Swal.fire({
-  icon: "success",
-  title: "El rol ha sido creado",
-  showConfirmButton: false,
-  timer: 1500
-});
+        icon: "success",
+        title: "El rol ha sido creado",
+        showConfirmButton: false,
+        timer: 1500
+    });
 </script>
 {% endif %}
 
 {% if deleted and not errors %}
 <script>
     Swal.fire({
-  icon: "success",
-  title: "El rol ha sido eliminado",
-  showConfirmButton: false,
-  timer: 1500
-});
+        icon: "success",
+        title: "El rol ha sido eliminado",
+        showConfirmButton: false,
+        timer: 1500
+    });
 </script>
 {% endif %}
 
 {% if edited and not errors %}
 <script>
     Swal.fire({
-  icon: "success",
-  title: "El rol ha sido editado",
-  showConfirmButton: false,
-  timer: 1500
-});
+        icon: "success",
+        title: "El rol ha sido editado",
+        showConfirmButton: false,
+        timer: 1500
+    });
 </script>
 {% endif %}
 
 {% block extrastyle %}
 
-    <link href="{% static 'assets/css/ajax_datatable_style.css' %}" rel="stylesheet" />
-    <link href="{% static 'assets/css/jquery.dataTables.min.css' %}" />
+<link href="{% static 'assets/css/ajax_datatable_style.css' %}" rel="stylesheet" />
+<link href="{% static 'assets/css/jquery.dataTables.min.css' %}" />
 
 {% endblock extrastyle %}
 
 {% block extrajs %}
 
-    <script src="{% static 'assets/js/jquery-3.5.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/js/utils.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.dataTables.min.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{% static 'assets/js/sweet_alert2.js' %}"></script>
+<script src="{% static 'assets/js/jquery-3.5.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/utils.js' %}"></script>
+<script src="{% static 'assets/js/jquery.dataTables.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'assets/js/sweet_alert2.js' %}"></script>
 
-    <script>
-        const btnsDelete = document.querySelectorAll(".btn-danger")
-        const ths = document.querySelectorAll("th")
-        const tds = document.querySelectorAll("td")
-        const trs = document.querySelectorAll("tr")
+<script>
+    const btnsDelete = document.querySelectorAll(".btn-danger")
+    const ths = document.querySelectorAll("th")
+    const tds = document.querySelectorAll("td")
+    const trs = document.querySelectorAll("tr")
 
-        ths.forEach(function(element) {
-            element.style.border = '2px solid black';
-        });
-        tds.forEach(function(element) {
-            element.style.border = '1px solid black';
-            element.style.textAlign = 'center';
+    ths.forEach(function(element) {
+        element.style.border = '2px solid #007bff';
+    });
+    tds.forEach(function(element) {
+        element.style.border = '1px solid #007bff';
+        element.style.textAlign = 'center';
 
-        });
+    });
 
-        trs.forEach(function(element) {
-            element.style.border = '2px solid black';
-        });
+    trs.forEach(function(element) {
+        element.style.border = '1px solid #007bff';
+    });
 
 
-        btnsDelete.forEach((btn) => {
-            btn.style.padding = "5px";
-            btn.style.backgroundColor = "red";
-            btn.style.borderRadius = "5px";
-            btn.style.borderWidth = "inherit";
-            btn.style.borderColor = "red";
-            btn.style.margin = "inherit";
-            btn.style.color = "white";
+    btnsDelete.forEach((btn) => {
+        btn.style.padding = "5px";
+        btn.style.backgroundColor = "red";
+        btn.style.borderRadius = "5px";
+        btn.style.borderWidth = "inherit";
+        btn.style.borderColor = "red";
+        btn.style.margin = "inherit";
+        btn.style.color = "white";
 
-            btn.addEventListener("click", function(e) {
-                e.preventDefault();
-                delete_alert("¿Desea eliminar el rol " + btn.name +"?", e);
-            })
+        btn.addEventListener("click", function(e) {
+            e.preventDefault();
+            delete_alert("¿Desea eliminar el rol " + btn.name +"?", e);
         })
+    })
 
 
 
 
-    </script>
+</script>
 
 {% endblock extrajs %}
 {% endblock content %}

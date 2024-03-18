@@ -1,45 +1,36 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-    <h6 class="relative ml-10 mt-4 pl-2 border-2 border-black w-4/5 text-blue-500 text-xl">Editar categoría</h6>
-    <div class="border-2 border-black ml-10 relative h-full p-3 w-4/5">
-
-        <form action="{% url 'editar_categoria' %}" method="POST">
-            {% csrf_token %}
-            <div class="flex flex-wrap  block mt-6">
-                <input type="hidden" name="id" value="{{ categoria.id }}">
-                <div>
-                    {{ categoria_form.nombre.errors }}
-                    {{ categoria_form.nombre.label_tag }}
-                    {{ categoria_form.nombre }}
-                </div>
-
-                <div class="ml-12">
-                    {{ categoria_form.estado.errors }}
-                    {{ categoria_form.estado.label_tag }} {{ categoria_form.estado }}
-                </div>
+<div class="relative ml-10 mt-6 h-full p-3 w-11/12 shadow rounded-xl">
+    <h6 class="relative pl-2 w-4/5 text-blue-500 text-xl">Editar categoría</h6>
 
 
+    <form action="{% url 'editar_categoria' %}" method="POST">
+        {% csrf_token %}
+        <div class="flex flex-wrap space-x-12 block mt-6">
+            {{ categoria_form | crispy  }}
+            <input type="hidden" name="id" value="{{ categoria.id }}">
             <div class="flex w-full justify-end space-x-4">
                 <input type="submit" value="Editar" class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]" >
-                <input type="button" value="Cancelar" onclick='cancel_edition("Edición cancelada","/home/categorias/")' class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]" >
+                <input type="button" value="Cancelar" onclick='window.location.href = "/home/categorias/"' class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]" >
             </div>
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
 
 
 {% block extrastyle %}
 
-    <link href="{% static 'assets/css/ajax_datatable_style.css' %}" rel="stylesheet" />
-    <link href="{% static 'assets/css/jquery.dataTables.min.css' %}" />
+<link href="{% static 'assets/css/ajax_datatable_style.css' %}" rel="stylesheet" />
+<link href="{% static 'assets/css/jquery.dataTables.min.css' %}" />
 
 {% endblock extrastyle %}
 
 {% block extrajs %}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{% static 'assets/js/sweet_alert2.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'assets/js/sweet_alert2.js' %}"></script>
 {% endblock extrajs %}
 
 

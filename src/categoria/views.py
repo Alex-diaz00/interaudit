@@ -149,11 +149,7 @@ def editar_subcategoria(request):
 
 def edicion_subcategoria(request, id):
     subcategoria = Subcategoria.objects.get(id=id)
-    initial_data = {
-        'nombre': subcategoria.nombre,
-        'estado': subcategoria.estado,
-        }
-    subcategoria_form = SubcategoriaForm(initial=initial_data)
+    subcategoria_form = SubcategoriaForm(instance=subcategoria)
     data = {
         'subcategoria': subcategoria,
         'subcategoria_form': subcategoria_form

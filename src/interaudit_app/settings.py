@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django_filters',
     'django_tables2',
     'bootstrap4',
+    "crispy_forms",
+    "crispy_bootstrap4",
     # The following apps are required by auth:
     'allauth',
     'allauth.account',
@@ -55,6 +57,8 @@ INSTALLED_APPS = [
     'categoria',
 
 ]
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

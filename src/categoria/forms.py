@@ -18,9 +18,16 @@ class SubcategoriaForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs.update({"class": "ml-2 border rounded border-black"})
-        # self.fields['categoria'].choices = Categoria.objects.all().values_list('id', 'nombre')
+        if kwargs:
+            subcategoria = Subcategoria.objects.get(id=kwargs['instance'].id)
+            categoria = subcategoria.categorias.all().values_list('id', 'nombre').first()
+            self.fields['categoria'] = forms.ModelChoiceField(
+                widget=forms.Select,
+                empty_label="Seleccione",
+                label='Categoría asociada',
+                queryset=Categoria.objects.all().order_by('nombre'),
+                initial=categoria
+                )
 
 
 class CategoriaForm(forms.ModelForm):
@@ -30,5 +37,5 @@ class CategoriaForm(forms.ModelForm):
         fields = ('nombre', 'estado',)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs.update({"class": "ml-2 border rounded border-black"})
+        # for field_name, field in self.fields.items():
+        #     field.widget.attrs.update({"class": "ml-2 border rounded border-black"})
