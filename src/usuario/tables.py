@@ -1,4 +1,3 @@
-
 from django_tables2 import tables
 from usuario.models import Usuario, Permiso, Rol
 

@@ -1,13 +1,9 @@
 from allauth.account.views import SignupView
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-
 from home.forms import LoginForm, RegistrationForm, UserPasswordChangeForm, UserPasswordResetForm, UserSetPasswordForm
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.contrib.auth import logout
-
 from django.views.generic import CreateView
-
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.

@@ -60,8 +60,6 @@ def delete_categoria(request, id):
                      'categoria_form': categoria_form, 'deleted': True}
 
     return render(request, 'pages/categoria.html', extra_context)
-    # return redirect("/home/categorias")
-
 
 class SubcategoriaTView(SingleTableView):
     model = Subcategoria
@@ -98,7 +96,6 @@ def insertar_subcategoria(request):
         categoria = Categoria.objects.filter(id=request.POST['categoria']).first()
         categoria.id_subcategoria.add(subcategoria)
         categoria.save()
-        # form.save_m2m()
 
     filter = SubcategoriaFilter()
     subcategorias = Subcategoria.objects.all()
@@ -109,8 +106,6 @@ def insertar_subcategoria(request):
                      'subcategoria_form': subcategoria_form, 'added': True}
 
     return render(request, 'pages/subcategoria.html', extra_context)
-
-    # return redirect("/home/subcategorias")
 
 def delete_subcategoria(request, id):
     obj = get_object_or_404(Subcategoria, id=id)

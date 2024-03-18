@@ -138,7 +138,6 @@ def insertar_usuario(request):
     form = RegistrationForm(request.POST)
     if form.is_valid():
         form.save()
-        # return redirect("/home/usuarios")
 
     filter = UsuarioFilter()
     errors = form.errors
@@ -279,7 +278,6 @@ def editar_rol(request):
                      'rol_form': rol_form, 'edited': True, 'filter': filter}
 
     return render(request, 'pages/rol.html', extra_context)
-    # return redirect("/home/roles")
 
 def edicion_rol(request, id):
     rol = Rol.objects.get(id=id)
@@ -318,7 +316,6 @@ def editar_usuario(request):
                      'usuario_form': usuario_form, 'edited': True, 'filter': filter}
 
     return render(request, 'pages/usuario.html', extra_context)
-    # return redirect("/home/usuarios")
 
 def edicion_usuario(request, id):
     usuario = Usuario.objects.get(id=id)

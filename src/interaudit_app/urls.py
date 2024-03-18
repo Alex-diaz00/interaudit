@@ -16,9 +16,6 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from disposicion import urls
-
-from usuario.views import UsuarioView, RolView, PermisoView
-from allauth.account import urls
 from usuario.views import *
 router = DefaultRouter(trailing_slash=False)
 

@@ -10,7 +10,7 @@ class CategoriaTable(tables.Table):
                                                          '<a href="{% url "delete_categoria" record.id %}" name="{{ record.nombre }}" id="btn-delete-table" class="btn btn-danger fa fa-trash px-2 m-1 bg-red-600 rounded text-white" >'
                                                          '</div>')
     categoria = tables.columns.Column(accessor="nombre", verbose_name="Categoría")
-    # subcategoria = tables.columns.Column(accessor="id_subcategoria", verbose_name="Subcategorías asociadas")
+
     subcategoria = tables.columns.ManyToManyColumn(
         accessor='id_subcategoria.all',
         verbose_name='Subcategorías asociadas',
@@ -36,12 +36,11 @@ class SubcategoriaTable(tables.Table):
                                                          '<a href="{% url "delete_subcategoria" record.id %}" name="{{ record.nombre }}" id="btn-delete-table" class="btn btn-danger fa fa-trash px-2 m-1 bg-red-600 rounded text-white" >'    
                                                          '</div>')
 
-    # categoria = tables.columns.Column(accessor="subcategorias.all", verbose_name="Categoría")
     categoria = tables.columns.ManyToManyColumn(
-            accessor='categorias.all',  # Acceso al atributo 'permisos' del modelo Rol
-            verbose_name='Categoría',  # Nombre de la columna
-            transform=lambda subcategorias: subcategorias.nombre,  # Función para transformar cada permiso en su nombre
-            separator=', ',  # Separador para concatenar los nombres de los permisos
+            accessor='categorias.all',
+            verbose_name='Categoría',
+            transform=lambda subcategorias: subcategorias.nombre,
+            separator=', ',
             orderable=False
         )
     subcategoria = tables.columns.Column(accessor="nombre", verbose_name="Subcategorías asociadas")

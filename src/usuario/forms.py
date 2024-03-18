@@ -1,10 +1,8 @@
-import self as self
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import gettext_lazy as _
 from usuario.models import Permiso, Usuario, Rol
-from crispy_forms.helper import FormHelper
-from django.db.models import fields
+
 
 class PermisoForm(forms.ModelForm):
     required_css_class = 'required'
@@ -15,9 +13,6 @@ class PermisoForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # for field_name, field in self.fields.items():
-        #     field.widget.attrs.update({"class": "ml-2 border rounded border-black"})
-
 
 class RolForm(forms.ModelForm):
     required_css_class = 'required'
@@ -31,9 +26,6 @@ class RolForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # for field_name, field in self.fields.items():
-        #     field.widget.attrs.update({"class": "ml-2 border rounded border-black"})
-        # self.fields["id_permiso"].widget.attrs.update({"class": "ml-2 rounded border-black"})
         self.fields['id_permiso'].choices = Permiso.objects.all().values_list('id', 'nombre').order_by('nombre')
 
         if kwargs:
@@ -69,17 +61,9 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = Usuario
         fields = ('username', 'email', 'rol', 'estado',)
-        error_messages = {
-            'username': {
-                'errorlist': ("Ya existe"),
-
-            },
-        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # for field_name, field in self.fields.items():
-        #     field.widget.attrs.update({"class": ""})
 
 
 
@@ -94,5 +78,3 @@ class UsuarioEditarForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # for field_name, field in self.fields.items():
-        #     field.widget.attrs.update({"class": "ml-2 border rounded border-black"})

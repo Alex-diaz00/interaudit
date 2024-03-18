@@ -12,8 +12,6 @@ class TipoDisposicionFuncionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # for field_name, field in self.fields.items():
-        #     field.widget.attrs.update({"class": "ml-2 border rounded border-black"})
 
 class TipoDisposicionEmiteForm(forms.ModelForm):
     required_css_class = 'required'
@@ -24,9 +22,6 @@ class TipoDisposicionEmiteForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # for field_name, field in self.fields.items():
-        #     field.widget.attrs.update({"class": "ml-2 border rounded border-black"})
-
 
 class EstadoDisposicionForm(forms.ModelForm):
     required_css_class = 'required'
@@ -37,9 +32,6 @@ class EstadoDisposicionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # for field_name, field in self.fields.items():
-        #     field.widget.attrs.update({"class": "ml-2 border rounded border-black"})
-
 
 class EmisorForm(forms.ModelForm):
     required_css_class = 'required'
@@ -50,5 +42,3 @@ class EmisorForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # for field_name, field in self.fields.items():
-        #     field.widget.attrs.update({"class": "ml-2 border rounded border-black"})

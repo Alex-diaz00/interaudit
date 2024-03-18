@@ -156,7 +156,6 @@ def delete_tipo_disposicion_funcion(request, id):
                      'disposicion': disposicion_form, 'deleted': True}
 
     return render(request, 'pages/tipo-disposicion-funcion.html', extra_context)
-    # return redirect("/home/tipo-disposicion-funcion")
 
 class TipoDisposicionEmiteTView(SingleTableView):
     model = TipoDisposicionEmite
@@ -196,7 +195,6 @@ def insertar_tipo_disposicion_emite(request):
 
     return render(request, 'pages/tipo-disposicion-emite.html', extra_context)
 
-    # return redirect("/home/tipo-disposicion-emite")
 
 
 def editar_tipo_disposicion_emite(request):
@@ -238,7 +236,6 @@ def delete_tipo_disposicion_emite(request, id):
                      'table': table_disposicion, 'filter': filter,
                      'disposicion': disposicion_form, 'deleted': True}
     return render(request, 'pages/tipo-disposicion-emite.html', extra_context)
-    # return redirect("/home/tipo-disposicion-emite")
 
 
 class EstadoDisposicionTView(SingleTableView):
@@ -277,7 +274,6 @@ def insertar_estado_disposicion(request):
                      'table': table_disposicion, 'filter': filter,
                      'disposicion': disposicion_form, 'added': True}
     return render(request, 'pages/estado-disposicion.html', extra_context)
-    # return redirect("/home/estado-disposicion")
 
 
 def editar_estado_disposicion(request):
@@ -318,7 +314,6 @@ def delete_estado_disposicion(request, id):
                      'table': table_disposicion, 'filter': filter,
                      'disposicion': disposicion_form, 'deleted': True}
     return render(request, 'pages/estado-disposicion.html', extra_context)
-    # return redirect("/home/estado-disposicion")
 
 class EmisorTView(SingleTableView):
     model = Emisor
@@ -396,6 +391,5 @@ def delete_emisor(request, id):
                      'table': table_emisor, 'filter': filter,
                      'emisor': emisor_form, 'deleted': True}
     return render(request, 'pages/emisor.html', extra_context)
-    # return redirect("/home/emisor")
 
 

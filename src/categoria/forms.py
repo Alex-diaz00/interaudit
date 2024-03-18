@@ -37,5 +37,3 @@ class CategoriaForm(forms.ModelForm):
         fields = ('nombre', 'estado',)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # for field_name, field in self.fields.items():
-        #     field.widget.attrs.update({"class": "ml-2 border rounded border-black"})
